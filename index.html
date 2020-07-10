@@ -23,25 +23,27 @@
             <div class="col-md-3 search-area">
                 <h3 class="text-secondary">Search for a City:</h3>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="searchinput" type="search" aria-label="Search">
+                    <input type="text" class="form-control" id="search-input" type="search" aria-label="Search">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" id="searchbtn" type="submit">
+                        <button class="btn btn-primary" id="search-btn" type="submit">
                             <i class="material-icons">search</i>
                         </button>
                     </div>
                 </div>
 
                 <div class="mt-5" id="prev-searches">
-                    <!-- Buttons for previous searches go here! -->
-                    <buton class="list-group-item list-group-item-primary">Test 1</buton>
-                    <buton class="list-group-item list-group-item-primary">Test 2</buton>
-                    <buton class="list-group-item list-group-item-primary">Test 3</buton>
+                    <div class="list-group">
+                        <!-- Buttons for previous searches go here! -->
+                        <!-- <a href="#" id="loc-btn" class="list-group-item list-group-item-action list-group-item-primary">Chicago</a>
+                        <a href="#" id="loc-btn" class="list-group-item list-group-item-action list-group-item-primary">Chicago</a>
+                        <a href="#" id="loc-btn" class="list-group-item list-group-item-action list-group-item-primary">Chicago</a> -->
+                    </div>
                 </div>
 
             </div>
 
             <div class="col-md-9">
-                <div class="container" id="weather-forecast">
+                <div class="container" id="current-forecast">
                     <!-- Weather for searched location -->
                     <div class="card bg-light">
                         <div class="card-header">Current Weather For Chicago</div>
@@ -67,63 +69,67 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="one-fifth">
-                            <div class="card text-white bg-primary justify-content-around">
-                                <div class="card-header">Jul 10th</div>
-                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
-                                <div class="card-body">
-                                    <p class="card-text">Temp: 73.22 F</p>
-                                    <p class="card-text">Humidity: 73%</p>
+                    <div class="container mt-3">
+
+                        <h4>5-Day Forecast:</h4>
+                        <div class="row mt-3" id="five-day-forecast">
+
+                            <div class="one-fifth">
+                                <div class="card text-white bg-primary justify-content-around">
+                                    <div class="card-header">Jul 10th</div>
+                                    <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                    <div class="card-body">
+                                        <p class="card-text">Temp: 73.22 F</p>
+                                        <p class="card-text">Humidity: 73%</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="one-fifth">
-                            <div class="card text-white bg-primary">
-                                <div class="card-header">Jul 10th</div>
-                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
-                                <div class="card-body">
-                                    <p class="card-text">Temp: 73.22 F</p>
-                                    <p class="card-text">Humidity: 73%</p>
+                            <div class="one-fifth">
+                                <div class="card text-white bg-primary">
+                                    <div class="card-header">Jul 10th</div>
+                                    <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                    <div class="card-body">
+                                        <p class="card-text">Temp: 73.22 F</p>
+                                        <p class="card-text">Humidity: 73%</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="one-fifth">
-                            <div class="card text-white bg-primary">
-                                <div class="card-header">Jul 10th</div>
-                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
-                                <div class="card-body">
-                                    <p class="card-text">Temp: 73.22 F</p>
-                                    <p class="card-text">Humidity: 73%</p>
+                            <div class="one-fifth">
+                                <div class="card text-white bg-primary">
+                                    <div class="card-header">Jul 10th</div>
+                                    <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                    <div class="card-body">
+                                        <p class="card-text">Temp: 73.22 F</p>
+                                        <p class="card-text">Humidity: 73%</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="one-fifth">
-                            <div class="card text-white bg-primary">
-                                <div class="card-header">Jul 10th</div>
-                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
-                                <div class="card-body">
-                                    <p class="card-text">Temp: 73.22 F</p>
-                                    <p class="card-text">Humidity: 73%</p>
+                            <div class="one-fifth">
+                                <div class="card text-white bg-primary">
+                                    <div class="card-header">Jul 10th</div>
+                                    <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                    <div class="card-body">
+                                        <p class="card-text">Temp: 73.22 F</p>
+                                        <p class="card-text">Humidity: 73%</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="one-fifth">
-                            <div class="card text-white bg-primary">
-                                <div class="card-header">Jul 10th</div>
-                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
-                                <div class="card-body">
-                                    <p class="card-text">Temp: 73.22 F</p>
-                                    <p class="card-text">Humidity: 73%</p>
+                            <div class="one-fifth">
+                                <div class="card text-white bg-primary">
+                                    <div class="card-header">Jul 10th</div>
+                                    <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                    <div class="card-body">
+                                        <p class="card-text">Temp: 73.22 F</p>
+                                        <p class="card-text">Humidity: 73%</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        
+                        </div>
                     </div>
 
 
