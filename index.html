@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand h1" href="./index.html">Weather Dashboard</a>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row mt-3">
+            <div class="col-md-3 search-area">
+                <h3 class="text-secondary">Search for a City:</h3>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="searchinput" type="search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" id="searchbtn" type="submit">
+                            <i class="material-icons">search</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-5" id="prev-searches">
+                    <!-- Buttons for previous searches go here! -->
+                    <buton class="list-group-item list-group-item-primary">Test 1</buton>
+                    <buton class="list-group-item list-group-item-primary">Test 2</buton>
+                    <buton class="list-group-item list-group-item-primary">Test 3</buton>
+                </div>
+
+            </div>
+
+            <div class="col-md-9">
+                <div class="container" id="weather-forecast">
+                    <!-- Weather for searched location -->
+                    <div class="card bg-light">
+                        <div class="card-header">Current Weather For Chicago</div>
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="https://openweathermap.org/img/wn/04d@2x.png" class="card-img">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h3 class="card-title">Chicago</h3>
+                                    <p class="card-text">
+                                        <small class="text-muted">Last Updated: Thursday, July 9th 2020, 7:15pm</small>
+                                    </p>
+                                    <p class="card-text">Temperature: 80.88 Degrees F</p>
+                                    <p class="card-text">Humidity: 55%</p>
+                                    <p class="card-text">Wind Speed: 16.75 MPH</p>
+                                    <p class="card-text">
+                                        UV Index:
+                                        <span class="uv-index" style="background-color:yellow">9.82</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="one-fifth">
+                            <div class="card text-white bg-primary justify-content-around">
+                                <div class="card-header">Jul 10th</div>
+                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                <div class="card-body">
+                                    <p class="card-text">Temp: 73.22 F</p>
+                                    <p class="card-text">Humidity: 73%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one-fifth">
+                            <div class="card text-white bg-primary">
+                                <div class="card-header">Jul 10th</div>
+                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                <div class="card-body">
+                                    <p class="card-text">Temp: 73.22 F</p>
+                                    <p class="card-text">Humidity: 73%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one-fifth">
+                            <div class="card text-white bg-primary">
+                                <div class="card-header">Jul 10th</div>
+                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                <div class="card-body">
+                                    <p class="card-text">Temp: 73.22 F</p>
+                                    <p class="card-text">Humidity: 73%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one-fifth">
+                            <div class="card text-white bg-primary">
+                                <div class="card-header">Jul 10th</div>
+                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                <div class="card-body">
+                                    <p class="card-text">Temp: 73.22 F</p>
+                                    <p class="card-text">Humidity: 73%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="one-fifth">
+                            <div class="card text-white bg-primary">
+                                <div class="card-header">Jul 10th</div>
+                                <img class="card-img-top" src="https://openweathermap.org/img/wn/10d@2x.png">
+                                <div class="card-body">
+                                    <p class="card-text">Temp: 73.22 F</p>
+                                    <p class="card-text">Humidity: 73%</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
