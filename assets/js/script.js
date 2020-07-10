@@ -1,6 +1,7 @@
 // Define global variables
 var savedLocationsArray = [];
 var currentLocation;
+var city = ["nashville"]
 
 var initialize = function () {
 
@@ -52,6 +53,9 @@ var loadLocations = function () {
     // prevent default behavior of page refresh
     event.preventDefault();
 
+    // clear previous forecast
+    clear();
+
     // get the value of the input field
     var location = $("#search-input").val().trim();
     // console.log(location);
@@ -61,6 +65,9 @@ var loadLocations = function () {
 
     // send location variable to the saveLocation function
     saveLocation(location);
+
+    // send location variable to the getCurrent function
+    getCurrent(location);
 
     // if location wasn't empty
     // if (location !== "") {
@@ -108,6 +115,46 @@ var showPrevious = function () {
         $("#prev-searches").append(btns);
 
     }
+};
+
+function getCurrent(location) {
+    fetch(
+        "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=1a779978d53b819f8904840069dffbb8&units=imperial"
+    )
+
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (response) {
+            console.log(response);
+
+            // create the card
+            var currentCard = $("<div>").attr("class", "current-card");
+            $("#current-forecast").append(currentCard);
+
+            // add location to card header
+            var currentCardHeader = $("<div>").attr("class", "card-header").text("Current Weather For: " + response.name);
+            currentCard.append(currentCardHeader);
+
+            var cardRow = $("<div>").attr("class", "row no-gutters");
+            currentCard.append(cardRow);
+
+            // get icon for weather conditions
+            var iconURL = "https://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png";
+
+            var imgDiv = $("<div>").attr("class", "col-md-4").append($("<img>").attr("src", iconURL).attr("class", "card-img"));
+            cardRow.append(imgDiv);
+
+
+
+        })
+
+
+};
+
+function clear() {
+    // clear all of the previous weather
+    $("#current-forecast").empty();
 };
 
 
