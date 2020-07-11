@@ -1,19 +1,20 @@
 // Define global variables
-var savedLocationsArray = [];
+var savedLocationsArray = JSON.parse(localStorage.getItem("searched-cities"));
 var currentLocation;
 var city = ["nashville"]
 
 var initialize = function () {
 
     // grab previous locations from local storage
-    savedLocationsArray = JSON.parse(localStorage.getItem("searched-cities"));
+    // savedLocationsArray = JSON.parse(localStorage.getItem("searched-cities"));
     // console.log(savedLocationsArray);
 
     if (savedLocationsArray) {
         showPrevious();
 
     } else {
-        currentLocation = "Nashville";
+        getCurrent("Nashville");
+        // currentLocation = "Nashville";
 
     }
 
@@ -107,8 +108,7 @@ var showPrevious = function () {
         $("#prev-searches").empty();
         var btns = $("<div>").attr("class", "list-group");
         for (var i = 0; i < savedLocationsArray.length; i++) {
-            var locationBtn = $("<a>").attr("href", "#").attr("id", "loc-btn").text(savedLocationsArray[i]);
-            locationBtn.attr("class", "list-group-item list-group-item-action list-group-item-primary");
+            var locationBtn = $("<button>").attr("class", "loc-btn list-group-item list-group-item-action list-group-item-primary").text(savedLocationsArray[i]);
             btns.prepend(locationBtn);
         }
 
@@ -128,8 +128,13 @@ function getCurrent(location) {
         .then(function (response) {
             console.log(response);
 
+            if (response.cod != "200") {
+                alert("Invalid Location, Please Select a Valid Location");
+                return;
+            }
+
             // create the card
-            var currentCard = $("<div>").attr("class", "current-card");
+            var currentCard = $("<div>").attr("class", "card bg-light current-card");
             $("#current-forecast").append(currentCard);
 
             // add location to card header
@@ -145,11 +150,69 @@ function getCurrent(location) {
             var imgDiv = $("<div>").attr("class", "col-md-4").append($("<img>").attr("src", iconURL).attr("class", "card-img"));
             cardRow.append(imgDiv);
 
+            var textDiv = $("<div>").attr("class", "col-md-8");
+            var cardBody = $("<div>").attr("class", "card-body");
+            textDiv.append(cardBody);
+
+            // display city name
+            cardBody.append($("<h3>").attr("class", "card-title").text(response.name));
+
+            // display last updated
+            var currentDate = moment(response.dt, "X").format("dddd, MMMM Do YYYY, h:mm a");
+            // console.log(currentDate);
+            cardBody.append($("<p>").attr("class", "card-text").append($("<small>").attr("class", "text-muted").text("Last Updated: " + currentDate)));
+
+            // display Temperature
+            cardBody.append($("<p>").attr("class", "card-text").html("Temperature: " + response.main.temp + " &#8457;"));
+
+            // display Humidity
+            cardBody.append($("<p>").attr("class", "card-text").text("Humidity: " + response.main.humidity + "%"));
+
+            // display Wind Speed
+            cardBody.append($("<p>").attr("class", "card-text").text("Wind Speed: " + response.wind.speed + " MPH"));
+
+            // UV index
+            fetch(
+                "https://api.openweathermap.org/data/2.5/uvi?appid=1a779978d53b819f8904840069dffbb8&lat=" + response.coord.lat + "&lon=" + response.coord.lon
+            )
+
+                .then(function (uvresponse) {
+                    return uvresponse.json();
+                })
+                .then(function (uvresponse) {
+                    console.log(uvresponse);
+
+                    var uvIndex = uvresponse.value;
+
+                    var displayUV = $("<p>").attr("class", "card-text").text("UV Index: ");
+                    var displaySpan = $("<span>").attr("class", "uv-index").text(uvIndex);
+
+                    if (uvIndex <= 3) {
+                        displaySpan.addClass("green");
+                    }
+                    else if (uvIndex <= 6) {
+                        displaySpan.addClass("yellow");
+                    }
+                    else if (uvIndex <= 8) {
+                        displaySpan.addClass("orange");
+                    }
+                    else {
+                        displaySpan.addClass("red");
+                    }
+
+                    displayUV.append(displaySpan);
+                    cardBody.append(displayUV);
+                });
 
 
-        })
 
 
+
+
+
+            cardRow.append(textDiv);
+
+        });
 };
 
 function clear() {
@@ -160,7 +223,32 @@ function clear() {
 
 
 
-
+// on click if you hit the search button icon
 $("#search-btn").on("click", loadLocations);
+
+// on keyup if you hit the enter key after typing city name
+$("#search-input").on("keyup", function (event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById("search-btn").click();
+    }
+});
+
+// on click for previously saved locations
+$(".list-group").on("click", function () {
+    console.log("test");
+    console.log($(this)[0].innerHTML);
+    // event.preventDefault();
+   
+    // location = $(this)[0].innerHTML;
+
+    // clear();
+    // location = $(this).text();
+    // showPrevious();
+    // getCurrent(location);
+});
 
 initialize();
