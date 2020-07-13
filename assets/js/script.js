@@ -59,7 +59,7 @@ var saveLocation = function (cityLocation) {
 
     // save the new array to localStorage
     localStorage.setItem("searched-cities", JSON.stringify(savedLocationsArray));
-    console.log(savedLocationsArray);
+    // console.log(savedLocationsArray);
     showPrevious();
 
 
@@ -92,7 +92,7 @@ function getCurrent(cityLocation) {
             return response.json();
         })
         .then(function (response) {
-            console.log(response);
+            // console.log(response);
 
             if (response.cod != "200") {
                 var searchStatus = $("<p>").attr("class", "text-muted").text("Invalid Location");
@@ -150,7 +150,7 @@ function getCurrent(cityLocation) {
                     return uvresponse.json();
                 })
                 .then(function (uvresponse) {
-                    console.log(uvresponse);
+                    // console.log(uvresponse);
 
                     var uvIndex = uvresponse.value;
 
@@ -190,7 +190,7 @@ function getForecast(cityLocation) {
             return forecastResponse.json();
         })
         .then(function (forecastResponse) {
-            console.log(forecastResponse);
+            // console.log(forecastResponse);
 
              // create the container header
              var forecastContainerHeader = $("<h4>").attr("id", "five-day-header").text("5-Day Forecast:");
