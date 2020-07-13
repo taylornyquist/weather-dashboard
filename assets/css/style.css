@@ -17,8 +17,8 @@
 .one-fifth {
     box-sizing: border-box;
     width: 19%;
-    margin: 3px;
-    padding: 2px; 
+    margin: 0px;
+    padding: 5px; 
 }
 
 /* .one-fifth:first-child {

@@ -230,36 +230,36 @@ function getForecast(cityLocation) {
         .then(function (forecastResponse) {
             console.log(forecastResponse);
 
-            for (let index = 0; index < array.length; index++) {
-                const element = array[index];
-                 // create the column
-            var forecastCol = $("<div>").attr("class", "one-fifth");
-            $("#five-day-forecast").append(forecastCol);
+            // start at index 4 and get forcast in 8 hour gaps
+            for (i = 0; i < forecastResponse.list.length; i++) {
 
-            // create the card
-            var forecastCard = $("<div>").attr("class", "card text-white bg-primary justify-content-around");
-            forecastCol.append(forecastCard);
+                if (forecastResponse.list[i].dt_txt.indexOf("15:00:00") !== -1) {
 
-            // create the forecast date header
-            var forecastHeader = $("<div>").attr("class", "card-header").text(moment(forecastResponse.list[5].dt, "X").format ("MMM Do"));
-            forecastCard.append(forecastHeader);
+                    // create the column
+                    var forecastCol = $("<div>").attr("class", "one-fifth");
+                    $("#five-day-forecast").append(forecastCol);
 
-            // create the forecast icon
-            var forecastIcon = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + forecastResponse.list[5].weather[0].icon + "@2x.png");
-            forecastCard.append(forecastIcon);
+                    // create the card
+                    var forecastCard = $("<div>").attr("class", "card text-white bg-primary justify-content-around");
+                    forecastCol.append(forecastCard);
 
-            // create the forecast card body
-            var forecastBody = $("<div>").attr("class", "card-body");
-            forecastCard.append(forecastBody);
+                    // create the forecast date header
+                    var forecastHeader = $("<div>").attr("class", "card-header").text(moment(forecastResponse.list[i].dt, "X").format("MMM Do"));
+                    forecastCard.append(forecastHeader);
 
-            // populate the forecast card body with temp and humidity
-            forecastBody.append($("<p>").attr("class", "card-text").html("Temp: " + forecastResponse.list[5].main.temp + " &#8457;"));
-            forecastBody.append($("<p>").attr("class", "card-text").text("Humidity: " + forecastResponse.list[5].main.humidity + "%"));
+                    // create the forecast icon
+                    var forecastIcon = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + forecastResponse.list[i].weather[0].icon + "@2x.png");
+                    forecastCard.append(forecastIcon);
 
-                
+                    // create the forecast card body
+                    var forecastBody = $("<div>").attr("class", "card-body");
+                    forecastCard.append(forecastBody);
+
+                    // populate the forecast card body with temp and humidity
+                    forecastBody.append($("<p>").attr("class", "card-text").html("Temp: " + forecastResponse.list[i].main.temp + " &#8457;"));
+                    forecastBody.append($("<p>").attr("class", "card-text").html("Humidity: " + forecastResponse.list[i].main.humidity + "%"));
+                }
             }
-
-           
         });
 };
 
