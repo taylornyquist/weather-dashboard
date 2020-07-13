@@ -11,7 +11,8 @@ var initialize = function () {
         showPrevious();
 
     } else {
-        getCurrent("Nashville");
+        // If no saved locations, default to nashville
+        getCurrent("nashville");
     }
 };
 
@@ -34,7 +35,7 @@ var loadLocations = function () {
 
     } else {
         cityLocation = cityLocation.toLowerCase();
-        cityLocation = cityLocation[0].toUpperCase() + cityLocation.substring(1);
+        // cityLocation = cityLocation[0].toUpperCase() + cityLocation.substring(1);
     
         // clear the search field value
         $("#search-input").val("");
@@ -203,7 +204,7 @@ function getForecast(cityLocation) {
                    
 
                     // create the column
-                    var forecastCol = $("<div>").attr("class", "one-fifth");
+                    var forecastCol = $("<div>").attr("class", "col one-fifth mt-3");
                     $("#five-day-forecast").append(forecastCol);
 
                     // create the card
@@ -211,7 +212,7 @@ function getForecast(cityLocation) {
                     forecastCol.append(forecastCard);
 
                     // create the forecast date header
-                    var forecastHeader = $("<div>").attr("class", "card-header").text(moment(forecastResponse.list[i].dt, "X").format("MMM Do"));
+                    var forecastHeader = $("<div>").attr("class", "card-header").text(moment(forecastResponse.list[i].dt, "X").format("M/DD/YY"));
                     forecastCard.append(forecastHeader);
 
                     // create the forecast icon

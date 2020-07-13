@@ -18,24 +18,9 @@
     font-style: italic;
 }
 
-.one-fifth {
-    box-sizing: border-box;
-    width: 19%;
-    margin: 0px;
-    padding: 5px;
-}
-
 #five-day-forecast {
     justify-content: space-around;
 }
-
-/* .one-fifth:first-child {
-    margin-left: 0px;
-}
-
-.one-fifth:last-child{
-    margin-right: 0px;
-} */
 
 /* UV Index Background Colors: */
 .green {
@@ -60,4 +45,14 @@
     padding: 5px;
 }
 
+/* Media Query */
+@media screen and (min-width: 768px) {
+
+    .one-fifth {
+        box-sizing: border-box;
+        width: 19%;
+        margin: 0px;
+        padding: 5px;
+    }
+}
 
