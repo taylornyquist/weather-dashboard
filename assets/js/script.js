@@ -1,12 +1,9 @@
 // Define global variables
 var savedLocationsArray = JSON.parse(localStorage.getItem("searched-cities"));
 var currentLocation;
-var city = ["nashville"]
 
 var initialize = function () {
 
-    // grab previous locations from local storage
-    // savedLocationsArray = JSON.parse(localStorage.getItem("searched-cities"));
     // console.log(savedLocationsArray);
 
     if (savedLocationsArray) {
@@ -18,37 +15,7 @@ var initialize = function () {
         // currentLocation = "Nashville";
 
     }
-
-    // if (savedLocationsArray) {
-
-    //     // get the last city searched for and display it
-    //     // currentLocation = savedLocationsArray[savedLocationsArray.length - 1];
-
-    //     // send to showPrevious function
-    //     // showPrevious();
-    //     // getCurrent(currentLocation)
-    // }
-
-
-
-
 };
-
-// Create an On Click for the search icon 
-// stores city name to local storage
-// recalls city names upon page load/refresh
-// populates left hand column with loaded city names from local storage
-// previous cities are clickable and can be reloaded from sidebar
-
-// fetches API URL from open weather
-// populates current weather
-// populates five day forecast
-// changes UV Index background color based on value
-
-// optional:
-// get current location from users browswer automatically
-// make a last updated time stamp
-
 
 var loadLocations = function () {
 
@@ -66,22 +33,8 @@ var loadLocations = function () {
     // clear the search field value
     $("#search-input").val("");
 
-    // // send location variable to the saveLocation function
-    // saveLocation(location);
-
     // send location variable to the getCurrent function
     getCurrent(cityLocation);
-
-    // if location wasn't empty
-    // if (location !== "") {
-    //     // clear previous forecast
-    //     clear();
-    //     currentLocation = location;
-    //     saveLocation (location);
-    //     // clear the search field value
-    //     $("#search-input").val("");
-    //     getCurrent (location);
-    // }
 };
 
 // saveLoction function stores searched locations in localStorage
@@ -133,7 +86,10 @@ function getCurrent(cityLocation) {
             console.log(response);
 
             if (response.cod != "200") {
-                alert("Invalid Location, Please Select a Valid Location");
+                // alert("Invalid Location, Please Select a Valid Location");
+                var searchStatus = $("<p>").attr("class", "text-muted").text("Invalid Location");
+                $("#search-status").append(searchStatus);
+
                 return;
             }
 
@@ -230,10 +186,16 @@ function getForecast(cityLocation) {
         .then(function (forecastResponse) {
             console.log(forecastResponse);
 
+             // create the container header
+             var forecastContainerHeader = $("<h4>").attr("id", "five-day-header").text("5-Day Forecast:");
+             $("#five-day-container").prepend(forecastContainerHeader)
+
             // start at index 4 and get forcast in 8 hour gaps
             for (i = 0; i < forecastResponse.list.length; i++) {
 
                 if (forecastResponse.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+
+                   
 
                     // create the column
                     var forecastCol = $("<div>").attr("class", "one-fifth");
@@ -270,7 +232,9 @@ function getForecast(cityLocation) {
 function clear() {
     // clear all of the previous weather
     $("#current-forecast").empty();
+    $("#five-day-header").empty();
     $("#five-day-forecast").empty();
+    $("#search-status").empty();
 };
 
 

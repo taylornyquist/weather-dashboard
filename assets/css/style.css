@@ -14,11 +14,19 @@
     padding: 6px 5px 0px 5px;
 }
 
+#search-status {
+    font-style: italic;
+}
+
 .one-fifth {
     box-sizing: border-box;
     width: 19%;
     margin: 0px;
-    padding: 5px; 
+    padding: 5px;
+}
+
+#five-day-forecast {
+    justify-content: space-around;
 }
 
 /* .one-fifth:first-child {
