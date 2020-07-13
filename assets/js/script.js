@@ -10,6 +10,7 @@ var initialize = function () {
     // console.log(savedLocationsArray);
 
     if (savedLocationsArray) {
+        getCurrent(savedLocationsArray[savedLocationsArray.length - 1])
         showPrevious();
 
     } else {
@@ -58,17 +59,18 @@ var loadLocations = function () {
     clear();
 
     // get the value of the input field
-    var location = $("#search-input").val().trim();
-    // console.log(location);
+    var cityLocation = $("#search-input").val().trim();
+    cityLocation = cityLocation.toLowerCase();
+    cityLocation = cityLocation[0].toUpperCase() + cityLocation.substring(1);
 
     // clear the search field value
     $("#search-input").val("");
 
-    // send location variable to the saveLocation function
-    saveLocation(location);
+    // // send location variable to the saveLocation function
+    // saveLocation(location);
 
     // send location variable to the getCurrent function
-    getCurrent(location);
+    getCurrent(cityLocation);
 
     // if location wasn't empty
     // if (location !== "") {
@@ -83,20 +85,22 @@ var loadLocations = function () {
 };
 
 // saveLoction function stores searched locations in localStorage
-var saveLocation = function (location) {
-    // console.log(location);
+var saveLocation = function (cityLocation) {
+    // console.log(cityLocation);
 
     // add location to the saved locations array
     if (savedLocationsArray === null) {
-        savedLocationsArray = [location];
-    } else if (savedLocationsArray.indexOf(location) === -1) {
-        savedLocationsArray.push(location);
+        savedLocationsArray = [cityLocation];
+    } else if (savedLocationsArray.indexOf(cityLocation) === -1) {
+        savedLocationsArray.push(cityLocation);
     }
+
     // save the new array to localStorage
-    // savedLocationsArray.push(location);
     localStorage.setItem("searched-cities", JSON.stringify(savedLocationsArray));
     console.log(savedLocationsArray);
     showPrevious();
+
+
 
 };
 
@@ -117,9 +121,9 @@ var showPrevious = function () {
     }
 };
 
-function getCurrent(location) {
+function getCurrent(cityLocation) {
     fetch(
-        "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=1a779978d53b819f8904840069dffbb8&units=imperial"
+        "https://api.openweathermap.org/data/2.5/weather?q=" + cityLocation + "&appid=1a779978d53b819f8904840069dffbb8&units=imperial"
     )
 
         .then(function (response) {
@@ -132,6 +136,9 @@ function getCurrent(location) {
                 alert("Invalid Location, Please Select a Valid Location");
                 return;
             }
+
+            // if search city is valid, send location variable to the saveLocation function
+            saveLocation(cityLocation);
 
             // create the card
             var currentCard = $("<div>").attr("class", "card bg-light current-card");
@@ -204,20 +211,66 @@ function getCurrent(location) {
                     cardBody.append(displayUV);
                 });
 
-
-
-
-
-
-
             cardRow.append(textDiv);
 
         });
+
+    getForecast(cityLocation);
 };
+
+function getForecast(cityLocation) {
+
+    fetch(
+        "https://api.openweathermap.org/data/2.5/forecast?q=" + cityLocation + "&appid=1a779978d53b819f8904840069dffbb8&units=imperial"
+    )
+
+        .then(function (forecastResponse) {
+            return forecastResponse.json();
+        })
+        .then(function (forecastResponse) {
+            console.log(forecastResponse);
+
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                 // create the column
+            var forecastCol = $("<div>").attr("class", "one-fifth");
+            $("#five-day-forecast").append(forecastCol);
+
+            // create the card
+            var forecastCard = $("<div>").attr("class", "card text-white bg-primary justify-content-around");
+            forecastCol.append(forecastCard);
+
+            // create the forecast date header
+            var forecastHeader = $("<div>").attr("class", "card-header").text(moment(forecastResponse.list[5].dt, "X").format ("MMM Do"));
+            forecastCard.append(forecastHeader);
+
+            // create the forecast icon
+            var forecastIcon = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + forecastResponse.list[5].weather[0].icon + "@2x.png");
+            forecastCard.append(forecastIcon);
+
+            // create the forecast card body
+            var forecastBody = $("<div>").attr("class", "card-body");
+            forecastCard.append(forecastBody);
+
+            // populate the forecast card body with temp and humidity
+            forecastBody.append($("<p>").attr("class", "card-text").html("Temp: " + forecastResponse.list[5].main.temp + " &#8457;"));
+            forecastBody.append($("<p>").attr("class", "card-text").text("Humidity: " + forecastResponse.list[5].main.humidity + "%"));
+
+                
+            }
+
+           
+        });
+};
+
+// forecast cards:  date > icon > Temp: 58.12 Deg F > Humidity: 70%
+// index for 3pm: 5, 13, 21, 29, 37
+
 
 function clear() {
     // clear all of the previous weather
     $("#current-forecast").empty();
+    $("#five-day-forecast").empty();
 };
 
 
@@ -238,17 +291,11 @@ $("#search-input").on("keyup", function (event) {
 });
 
 // on click for previously saved locations
-$(".list-group").on("click", function () {
-    console.log("test");
-    console.log($(this)[0].innerHTML);
-    // event.preventDefault();
-   
-    // location = $(this)[0].innerHTML;
-
-    // clear();
-    // location = $(this).text();
-    // showPrevious();
-    // getCurrent(location);
+$(document).on("click", ".loc-btn", function () {
+    cityLocation = $(this)[0].innerHTML;
+    clear();
+    showPrevious();
+    getCurrent(cityLocation);
 });
 
 initialize();
