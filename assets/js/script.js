@@ -12,8 +12,6 @@ var initialize = function () {
 
     } else {
         getCurrent("Nashville");
-        // currentLocation = "Nashville";
-
     }
 };
 
@@ -27,14 +25,24 @@ var loadLocations = function () {
 
     // get the value of the input field
     var cityLocation = $("#search-input").val().trim();
-    cityLocation = cityLocation.toLowerCase();
-    cityLocation = cityLocation[0].toUpperCase() + cityLocation.substring(1);
 
-    // clear the search field value
-    $("#search-input").val("");
+    if (cityLocation === "") {
 
-    // send location variable to the getCurrent function
-    getCurrent(cityLocation);
+        var searchStatus = $("<p>").attr("class", "text-muted").text("Invalid Location");
+        $("#search-status").append(searchStatus);
+        return;
+
+    } else {
+        cityLocation = cityLocation.toLowerCase();
+        cityLocation = cityLocation[0].toUpperCase() + cityLocation.substring(1);
+    
+        // clear the search field value
+        $("#search-input").val("");
+    
+        // send location variable to the getCurrent function
+        getCurrent(cityLocation);
+
+    }   
 };
 
 // saveLoction function stores searched locations in localStorage
@@ -86,10 +94,8 @@ function getCurrent(cityLocation) {
             console.log(response);
 
             if (response.cod != "200") {
-                // alert("Invalid Location, Please Select a Valid Location");
                 var searchStatus = $("<p>").attr("class", "text-muted").text("Invalid Location");
                 $("#search-status").append(searchStatus);
-
                 return;
             }
 
@@ -168,10 +174,9 @@ function getCurrent(cityLocation) {
                 });
 
             cardRow.append(textDiv);
+            getForecast(cityLocation);
 
-        });
-
-    getForecast(cityLocation);
+        });    
 };
 
 function getForecast(cityLocation) {
