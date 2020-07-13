@@ -36,7 +36,7 @@ https://taylornyquist.github.io/weather-dashboard/
 * Boostrap Grid
 
  ## Known Issues/Future Enhancements
-* Future feature could include geolocating users city
+* Future feature could include geolocating the user's city location
 * Previously searched cities appear in all lowercase, future enhancement could have uppercase first letter of word in city name
 * App could be more responsive to differing screen sizes
 
